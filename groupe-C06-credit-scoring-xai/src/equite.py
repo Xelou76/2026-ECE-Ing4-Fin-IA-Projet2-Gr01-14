@@ -1,5 +1,5 @@
 # ============================================================
-# dashboard.py.py — Streamlit interactif
+# dashboard.py-Streamlit interactif
 # Credit Scoring XAI — Niveau Excellence
 # Lancer : streamlit run src/dashboard.py.py
 # ============================================================
