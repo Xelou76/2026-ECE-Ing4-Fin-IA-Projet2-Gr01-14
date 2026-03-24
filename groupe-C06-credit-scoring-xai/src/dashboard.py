@@ -1,14 +1,9 @@
-# ============================================================
-# dashboard.py — Streamlit interactif
-# Credit Scoring XAI — Niveau Excellence
 # Lancer : streamlit run src/dashboard.py
-# ============================================================
 
 import os
 import json
 import warnings
 warnings.filterwarnings("ignore")
-
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -250,7 +245,7 @@ with st.sidebar:
 
 st.markdown(f"""
 <div class='xai-header'>
-    <h1>🏦 Credit Scoring — IA Explicable</h1>
+    <h1>🏦 Credit Scoring-IA Explicable</h1>
     <p>{dataset} · Modèle optimal · SHAP · LIME · Contrefactuels · Fairness · RGPD Art. 22</p>
 </div>
 """, unsafe_allow_html=True)
@@ -324,7 +319,7 @@ if "Vue d'ensemble" in page:
         yaxis_title="Taux vrais positifs",
         **THEME
     )
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width='stretch')
 
     st.markdown("<div class='sec-title'>Distribution des scores</div>", unsafe_allow_html=True)
     fig2 = go.Figure()
@@ -333,7 +328,7 @@ if "Vue d'ensemble" in page:
     fig2.add_trace(go.Histogram(x=y_prob[y_test==1], name="Défaut", opacity=0.7,
                                 marker_color="#E24B4A", nbinsx=30))
     fig2.update_layout(barmode="overlay", xaxis_title="Score de défaut", **THEME)
-    st.plotly_chart(fig2, use_container_width=True)
+    st.plotly_chart(fig2, width='stretch')
 
 # ============================================================
 # PAGE : EXPLICABILITÉ SHAP
@@ -351,7 +346,7 @@ elif "SHAP" in page:
         orientation="h", marker_color="#38bdf8"
     ))
     fig.update_layout(xaxis_title="Mean |SHAP|", **THEME)
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width='stretch')
 
     st.markdown("<div class='sec-title'>Explication individuelle (waterfall)</div>", unsafe_allow_html=True)
     idx = st.slider("Index du profil", 0, len(X_test)-1, 0)
@@ -368,7 +363,7 @@ elif "SHAP" in page:
         orientation="h", marker_color=colors
     ))
     fig2.update_layout(xaxis_title="Valeur SHAP", **THEME)
-    st.plotly_chart(fig2, use_container_width=True)
+    st.plotly_chart(fig2, width='stretch')
 
 # ============================================================
 # PAGE : LIME & COMPARAISON
@@ -379,7 +374,7 @@ elif "LIME" in page:
     if lime_path and os.path.exists(lime_path):
         df_comp = pd.read_csv(lime_path)
         st.markdown("<div class='sec-title'>Concordance SHAP vs LIME</div>", unsafe_allow_html=True)
-        st.dataframe(df_comp, use_container_width=True)
+        st.dataframe(df_comp, width='stretch')
 
         fig = go.Figure(go.Bar(
             x=df_comp["profil"], y=df_comp["concordance"],
@@ -387,7 +382,7 @@ elif "LIME" in page:
         ))
         fig.add_hline(y=df_comp["concordance"].mean(), line_dash="dash", line_color="#38bdf8")
         fig.update_layout(xaxis_title="Profil", yaxis_title="Concordance Top-3", **THEME)
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width='stretch')
     else:
         st.info("Lance d'abord `python src/explicabilite.py` pour générer les données LIME.")
 
@@ -402,7 +397,7 @@ elif "Contrefactuels" in page:
         st.markdown("*\"Que faudrait-il modifier pour ne plus être en défaut ?\"*")
         st.markdown("Tout client refusé a droit à une explication actionnable.")
         df_cf = pd.read_csv(cf_path)
-        st.dataframe(df_cf, use_container_width=True)
+        st.dataframe(df_cf, width='stretch')
     else:
         st.info("Lance d'abord `python src/explicabilite.py` pour générer les contrefactuels.")
 
@@ -429,7 +424,7 @@ elif "Fairness" in page:
         fig.add_hline(y=y_prob.mean(), line_dash="dash", line_color="#E24B4A",
                       annotation_text=f"Moyenne globale ({y_prob.mean():.2f})")
         fig.update_layout(xaxis_title="Tranche d'âge", yaxis_title="Score moyen", **THEME)
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width='stretch')
     else:
         st.info("La feature 'age' n'est pas disponible dans ce dataset.")
 
@@ -465,8 +460,8 @@ elif "Scoring" in page:
         orientation="h", marker_color=colors
     ))
     fig.update_layout(xaxis_title="Contribution SHAP", **THEME)
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width='stretch')
 
     st.markdown("<div class='sec-title'>Données du profil</div>", unsafe_allow_html=True)
     if not X_test_raw.empty:
-        st.dataframe(X_test_raw.iloc[[idx]], use_container_width=True)
+        st.dataframe(X_test_raw.iloc[[idx]], width='stretch')
