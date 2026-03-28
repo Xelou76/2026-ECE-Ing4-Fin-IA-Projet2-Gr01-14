@@ -1,0 +1,9 @@
+.env*
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+.next/
+node_modules/
+*.tsbuildinfo
+chroma_db/

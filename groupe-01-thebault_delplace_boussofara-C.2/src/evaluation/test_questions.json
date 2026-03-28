@@ -1,0 +1,182 @@
+[
+  {
+    "question": "What were NVIDIA's most recent quarterly revenue and net income?",
+    "ground_truth": "NVIDIA reported strong quarterly results with revenue in the tens of billions of dollars, driven primarily by data center GPU demand. Net income significantly exceeded the prior year quarter.",
+    "query_type": "earnings",
+    "tickers": ["NVDA"]
+  },
+  {
+    "question": "What is NVIDIA's current P/E ratio and EV/EBITDA valuation?",
+    "ground_truth": "NVIDIA trades at a high P/E ratio reflecting strong growth expectations in AI infrastructure. EV/EBITDA is also elevated relative to historical norms.",
+    "query_type": "earnings",
+    "tickers": ["NVDA"]
+  },
+  {
+    "question": "What are Apple's latest annual revenue and earnings per share?",
+    "ground_truth": "Apple reported annual revenue in the hundreds of billions of dollars. EPS was positive and the company maintained strong gross margins above 40%.",
+    "query_type": "earnings",
+    "tickers": ["AAPL"]
+  },
+  {
+    "question": "How does Apple's gross margin compare to its operating margin?",
+    "ground_truth": "Apple's gross margin is significantly higher than its operating margin, with gross margin typically above 40% and operating margin in the high 20s to low 30s percent range.",
+    "query_type": "earnings",
+    "tickers": ["AAPL"]
+  },
+  {
+    "question": "What is Microsoft's revenue growth year-over-year?",
+    "ground_truth": "Microsoft has reported consistent revenue growth year-over-year, driven by Azure cloud services and productivity software. Revenue growth has been in the mid to high single digits or low double digits percent.",
+    "query_type": "earnings",
+    "tickers": ["MSFT"]
+  },
+  {
+    "question": "What is Tesla's net income and free cash flow for the latest period?",
+    "ground_truth": "Tesla's net income and free cash flow have been under pressure due to price cuts and lower margins. The company has reported mixed results with profitability declining from prior-year highs.",
+    "query_type": "earnings",
+    "tickers": ["TSLA"]
+  },
+  {
+    "question": "How does NVIDIA's debt-to-equity ratio compare to its beta?",
+    "ground_truth": "NVIDIA has a relatively low debt-to-equity ratio reflecting a strong balance sheet. Its beta is above 1, indicating higher volatility than the broader market.",
+    "query_type": "earnings",
+    "tickers": ["NVDA"]
+  },
+  {
+    "question": "What is Meta's market cap and latest earnings per share?",
+    "ground_truth": "Meta has a market cap in the trillions of dollars as of recent data. EPS has grown significantly following cost restructuring and strong advertising revenue recovery.",
+    "query_type": "earnings",
+    "tickers": ["META"]
+  },
+  {
+    "question": "What is the current Federal Funds Rate?",
+    "ground_truth": "The Federal Funds Rate is set by the Federal Reserve. As of recent data it is in the range of 4.25% to 5.5%, reflecting the Fed's tightening cycle to combat inflation.",
+    "query_type": "macro",
+    "tickers": []
+  },
+  {
+    "question": "What is the current 10-year US Treasury yield?",
+    "ground_truth": "The 10-year US Treasury yield (DGS10) has been in the range of 4% to 5% in recent periods, reflecting elevated interest rate expectations and inflation concerns.",
+    "query_type": "macro",
+    "tickers": []
+  },
+  {
+    "question": "Is the yield curve currently inverted? What does the 10Y-2Y spread show?",
+    "ground_truth": "The 10Y-2Y Treasury spread has been negative (inverted yield curve) during much of 2023-2024, historically a recession indicator. The spread reflects short-term rates exceeding long-term rates.",
+    "query_type": "macro",
+    "tickers": []
+  },
+  {
+    "question": "What is the current VIX level and what does it indicate?",
+    "ground_truth": "The VIX (CBOE Volatility Index) measures expected 30-day volatility. A reading below 20 indicates low fear, 20-30 moderate uncertainty, and above 30 high market stress. Recent readings reflect current market sentiment.",
+    "query_type": "macro",
+    "tickers": []
+  },
+  {
+    "question": "What are the latest weekly initial jobless claims?",
+    "ground_truth": "Weekly initial jobless claims (ICSA) are reported by the Department of Labor. A figure below 250,000 is generally considered healthy for the US labor market.",
+    "query_type": "macro",
+    "tickers": []
+  },
+  {
+    "question": "What recent news is there about NVIDIA's AI chip demand?",
+    "ground_truth": "Recent news about NVIDIA covers strong demand for H100 and Blackwell GPU chips from cloud providers and AI companies. Articles mention data center expansion, supply constraints, and competition from AMD and custom silicon.",
+    "query_type": "news",
+    "tickers": ["NVDA"]
+  },
+  {
+    "question": "What is the latest news about Apple's iPhone sales and product launches?",
+    "ground_truth": "Recent Apple news covers iPhone 16 launch, sales performance in China, and new AI features (Apple Intelligence). Analyst commentary ranges from cautious to optimistic on sales volume.",
+    "query_type": "news",
+    "tickers": ["AAPL"]
+  },
+  {
+    "question": "What are analysts saying about Tesla's competitive position in EVs?",
+    "ground_truth": "News about Tesla covers increasing competition from Chinese EV makers like BYD, price wars, margin pressure, and Elon Musk's focus on robotaxi and FSD. Analyst sentiment is mixed.",
+    "query_type": "news",
+    "tickers": ["TSLA"]
+  },
+  {
+    "question": "What news has there been about Federal Reserve interest rate decisions?",
+    "ground_truth": "Recent Fed news covers rate cut expectations, inflation data (CPI, PCE), and FOMC meeting decisions. The Fed has signaled a data-dependent approach to future rate moves.",
+    "query_type": "news",
+    "tickers": []
+  },
+  {
+    "question": "What recent news is there about the semiconductor sector?",
+    "ground_truth": "Semiconductor sector news covers AI chip demand (NVIDIA, AMD), export restrictions on advanced chips to China, TSMC capacity expansion, and Intel restructuring. The sector shows bifurcation between AI winners and legacy chip makers.",
+    "query_type": "news",
+    "tickers": ["NVDA", "AMD", "INTC"]
+  },
+  {
+    "question": "Compare NVIDIA and AMD: which has better revenue growth and valuation?",
+    "ground_truth": "NVIDIA has dramatically higher revenue growth driven by AI GPU demand and commands a premium valuation (high P/E, EV/EBITDA). AMD has lower but improving growth. NVIDIA leads on most financial metrics but trades at a significant premium.",
+    "query_type": "comparison",
+    "tickers": ["NVDA", "AMD"]
+  },
+  {
+    "question": "How do Apple and Microsoft compare on profitability metrics?",
+    "ground_truth": "Both Apple and Microsoft maintain high profit margins. Apple has higher gross margins driven by hardware and services mix. Microsoft has strong operating margins from its software and cloud business. Both are among the most profitable large-cap technology companies.",
+    "query_type": "comparison",
+    "tickers": ["AAPL", "MSFT"]
+  },
+  {
+    "question": "Which has a stronger balance sheet: Apple or Google?",
+    "ground_truth": "Both Apple and Alphabet (Google) maintain strong balance sheets with large cash reserves and low debt-to-equity ratios. Apple has historically returned more cash to shareholders via buybacks and dividends.",
+    "query_type": "comparison",
+    "tickers": ["AAPL", "GOOGL"]
+  },
+  {
+    "question": "Compare Tesla and Ford on revenue growth and margins.",
+    "ground_truth": "Tesla has higher revenue growth rates but has seen margin compression from price cuts. Ford is a more mature, lower-margin automaker with stable revenue. Tesla trades at a significant valuation premium despite lower absolute margins.",
+    "query_type": "comparison",
+    "tickers": ["TSLA", "F"]
+  },
+  {
+    "question": "What are the latest technical indicators for NVIDIA — is it overbought?",
+    "ground_truth": "Technical analysis of NVIDIA includes RSI, MACD, and momentum indicators. An RSI above 70 suggests overbought conditions. The stock's recent trend and moving averages provide context on momentum.",
+    "query_type": "momentum",
+    "tickers": ["NVDA"]
+  },
+  {
+    "question": "What is NVIDIA's 20-day price volatility and recent return?",
+    "ground_truth": "NVIDIA's 20-day annualized volatility reflects the stock's sensitivity to AI news flow. Recent 1-day, 5-day, and 20-day returns indicate the stock's momentum relative to the market.",
+    "query_type": "momentum",
+    "tickers": ["NVDA"]
+  },
+  {
+    "question": "How has the macro environment (rates, VIX) affected technology stocks?",
+    "ground_truth": "Rising interest rates have pressured technology valuations through higher discount rates, while elevated VIX signals market uncertainty. When rates are high, growth stocks with long-duration cash flows face multiple compression.",
+    "query_type": "macro",
+    "tickers": []
+  },
+  {
+    "question": "What is NVDA's free cash flow and how does it compare to its market cap?",
+    "ground_truth": "NVIDIA generates substantial free cash flow from its GPU business. FCF yield (free cash flow divided by market cap) is one indicator of valuation; for NVIDIA it reflects the tension between high growth expectations and current earnings power.",
+    "query_type": "earnings",
+    "tickers": ["NVDA"]
+  },
+  {
+    "question": "What recent news mentions the impact of AI on financial markets?",
+    "ground_truth": "News about AI's market impact covers investment flows into AI infrastructure, earnings beats from AI-exposed companies, and discussions of AI's productivity impact on the broader economy.",
+    "query_type": "news",
+    "tickers": []
+  },
+  {
+    "question": "What are Microsoft's Azure growth metrics in the latest earnings?",
+    "ground_truth": "Microsoft's Azure cloud platform has shown strong growth driven by AI services (Azure OpenAI). Revenue growth for the Intelligent Cloud segment reflects enterprise AI adoption.",
+    "query_type": "earnings",
+    "tickers": ["MSFT"]
+  },
+  {
+    "question": "Has the 10-year Treasury yield risen or fallen over the past few months?",
+    "ground_truth": "The 10-year Treasury yield trend over recent months reflects Federal Reserve policy expectations and inflation data. Yield direction has significant implications for equity valuations and bond markets.",
+    "query_type": "macro",
+    "tickers": []
+  },
+  {
+    "question": "What is TSLA's revenue and is the company still growing?",
+    "ground_truth": "Tesla's revenue has faced headwinds from price cuts and weaker demand in key markets including China. Revenue growth has slowed significantly compared to prior years, and the company is navigating margin recovery.",
+    "query_type": "earnings",
+    "tickers": ["TSLA"]
+  }
+]
