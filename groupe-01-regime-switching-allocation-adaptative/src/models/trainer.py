@@ -164,7 +164,9 @@ class EarlyStopping:
     def unfreeze(self) -> None:
         """Dégèle l'early stopping et remet le compteur à zéro."""
         self._frozen = False
-        self._counter = 0  # Reset propre : évite un arrêt immédiat post-warmup
+        self._counter = 0       # Reset propre : évite un arrêt immédiat post-warmup
+        self._best_loss = float("inf")  # Repart de zéro post-warmup — le premier
+                                        # checkpoint sera forcément le modèle à β final
 
     def step(self, val_recon: float) -> bool:
         """
@@ -181,12 +183,12 @@ class EarlyStopping:
         bool
             True si c'est le meilleur modèle jusqu'ici.
         """
-        # Si gelé : on checkpointe toujours mais on ne décompte pas
+        # Si gelé (warmup) : on suit le meilleur loss MAIS on ne signal pas is_best.
+        # Le checkpoint sera sauvegardé à la fin du warmup, pas pendant.
         if self._frozen:
             if val_recon < self._best_loss - self.min_delta:
                 self._best_loss = val_recon
-                return True
-            return False
+            return False  # jamais de checkpoint pendant le warmup
 
         if val_recon < self._best_loss - self.min_delta:
             self._best_loss = val_recon
@@ -371,9 +373,13 @@ class VAETrainer:
             if warmup_active and kl_scheduler.warmup_done:
                 early_stopping.unfreeze()
                 warmup_active = False
+                # Sauvegarde forcée à la fin du warmup : c'est le premier checkpoint
+                # avec β final. L'early stopping post-warmup partira de ce point.
+                history.best_epoch = epoch
+                self._save_checkpoint(model, optimizer, epoch, val_metrics["recon"])
                 logger.info(
                     f"  Epoch {epoch} — KL warmup terminé (β={beta:.3f}). "
-                    f"Early stopping activé sur val_recon."
+                    f"Early stopping activé sur val_recon. Checkpoint initial sauvegardé."
                 )
 
             # CORRECTION : val_recon et non val_elbo
