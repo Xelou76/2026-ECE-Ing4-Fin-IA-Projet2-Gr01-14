@@ -1,0 +1,4 @@
+profile_idx,score_original,suggestions
+0,0.262,Modifier 'charge_mensuelle' de 1.5 écart-type ferait passer le score à 0.09
+1,0.138,Modifier 'age' de 2.0 écart-type ferait passer le score à 0.08 | Modifier 'charge_mensuelle' de 1.0 écart-type ferait passer le score à 0.04
+4,0.128,Modifier 'montant_credit' de 0.5 écart-type ferait passer le score à 0.07 | Modifier 'charge_mensuelle' de 1.5 écart-type ferait passer le score à 0.05

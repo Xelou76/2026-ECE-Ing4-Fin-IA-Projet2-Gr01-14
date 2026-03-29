@@ -1,0 +1,60 @@
+{
+  "dataset_name": "lending_club",
+  "target_name": "defaut",
+  "feature_names": [
+    "loan_amnt",
+    "term",
+    "int_rate",
+    "installment",
+    "emp_length",
+    "annual_inc",
+    "dti",
+    "delinq_2yrs",
+    "inq_last_6mths",
+    "open_acc",
+    "pub_rec",
+    "revol_bal",
+    "revol_util",
+    "total_acc",
+    "mort_acc",
+    "pub_rec_bankruptcies",
+    "grade",
+    "sub_grade",
+    "home_ownership",
+    "verification_status",
+    "purpose"
+  ],
+  "num_features": [
+    "loan_amnt",
+    "term",
+    "int_rate",
+    "installment",
+    "emp_length",
+    "annual_inc",
+    "dti",
+    "delinq_2yrs",
+    "inq_last_6mths",
+    "open_acc",
+    "pub_rec",
+    "revol_bal",
+    "revol_util",
+    "total_acc",
+    "mort_acc",
+    "pub_rec_bankruptcies"
+  ],
+  "cat_features": [
+    "grade",
+    "sub_grade",
+    "home_ownership",
+    "verification_status",
+    "purpose"
+  ],
+  "n_train": 40000,
+  "n_test": 10000,
+  "target_rate_train": 0.19935,
+  "target_rate_test": 0.1993,
+  "sensitive_features": {
+    "age": null,
+    "gender": null
+  }
+}

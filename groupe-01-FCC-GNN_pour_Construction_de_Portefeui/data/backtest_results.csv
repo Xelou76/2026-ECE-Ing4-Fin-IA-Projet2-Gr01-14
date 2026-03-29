@@ -1,0 +1,5 @@
+,Rendement annualisé (%),Volatilité annualisée (%),Sharpe Ratio,Max Drawdown (%),Sortino Ratio,Calmar Ratio
+Equal Weight,20.81,13.09,1.59,-8.47,2.676,2.457
+Markowitz,25.77,24.93,1.034,-20.66,1.619,1.247
+GAT + Markowitz,24.97,28.66,0.871,-23.77,1.398,1.05
+GNN + RL,20.84,13.19,1.58,-8.48,2.665,2.459
