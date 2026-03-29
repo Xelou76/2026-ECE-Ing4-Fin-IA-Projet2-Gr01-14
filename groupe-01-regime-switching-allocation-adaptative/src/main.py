@@ -13,7 +13,11 @@ Orchestration complète du pipeline en 6 phases :
 
 Usage
 -----
-    
+    # Lancement avec la configuration par défaut
+    python main.py
+
+    # Ou avec des overrides de configuration
+    python main.py --n_regimes 2 --latent_dim 16 --seed 123
 
 Architecture du code
 --------------------
