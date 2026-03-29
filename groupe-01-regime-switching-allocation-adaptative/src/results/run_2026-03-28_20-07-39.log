@@ -1,0 +1,210 @@
+2026-03-28 20:07:41.474 | DEBUG    | utils.seed:set_all_seeds:63 - PyTorch seeds fixés (seed=42)
+2026-03-28 20:07:41.474 | INFO     | utils.seed:set_all_seeds:67 - Tous les seeds aléatoires fixés à 42
+2026-03-28 20:07:41.475 | INFO     | __main__:main:169 - ============================================================
+2026-03-28 20:07:41.475 | INFO     | __main__:main:170 -   Market Regime Detection — VAE-HMM Pipeline v2
+2026-03-28 20:07:41.475 | INFO     | __main__:main:171 - ============================================================
+2026-03-28 20:07:41.476 | INFO     | __main__:main:172 -   Seed=42 | Tickers=['SPY', 'TLT', 'GLD', '^VIX'] | N_régimes=3
+2026-03-28 20:07:41.527 | INFO     | __main__:main:173 -   Période : 2010-01-01 → 2024-12-31
+2026-03-28 20:07:41.528 | INFO     | __main__:main:174 -   Mode allocation : soft (forward filtering)
+2026-03-28 20:07:41.529 | INFO     | __main__:main:179 - 
+[1/5] 📊 Téléchargement & Feature Engineering...
+2026-03-28 20:07:42.731 | INFO     | data.processor:run:168 - MarketDataProcessor — démarrage du pipeline
+2026-03-28 20:07:42.732 | INFO     | data.downloader:download:100 - Téléchargement yfinance : ['SPY', 'TLT', 'GLD', '^VIX'] | 2010-01-01 → 2024-12-31
+2026-03-28 20:07:43.728 | DEBUG    | data.downloader:_save_cache:283 - Cache sauvegardé : b33a21cecdbeda79.pkl
+2026-03-28 20:07:43.728 | SUCCESS  | data.downloader:download:108 - Téléchargement réussi : 3773 jours × 4 tickers
+2026-03-28 20:07:43.732 | INFO     | data.features:fit_transform:100 - Feature engineering v2 — benchmark : SPY
+2026-03-28 20:07:47.829 | INFO     | data.features:fit_transform:169 - Features v2 : 64 colonnes | 135 lignes supprimées (lookback) | 3638 observations valides
+2026-03-28 20:07:47.831 | INFO     | data.processor:run:189 - Split — Train: 2546 | Val: 545 | Test: 547
+2026-03-28 20:07:47.853 | DEBUG    | data.processor:_normalize:304 - RobustScaler ajusté sur 2546 observations. Plage post-scaling : [-10.00, 10.00]
+2026-03-28 20:07:47.883 | SUCCESS  | data.processor:run:235 - DataBundle prêt — Séquences: train=2487 | val=486 | test=488 | Shape: (60, 64)
+2026-03-28 20:07:47.887 | SUCCESS  | __main__:main:184 -   DataBundle — shape=(60, 64) | Train/Val/Test: 2487/486/488
+2026-03-28 20:07:47.888 | INFO     | __main__:main:192 - 
+[2/5] 🧠 Entraînement du LSTM-VAE...
+2026-03-28 20:07:47.897 | INFO     | models.trainer:__init__:263 - VAETrainer — device : cpu
+2026-03-28 20:07:47.917 | INFO     | models.trainer:train:294 - Modèle : TimeSeriesVAE(input_dim=64, hidden_dim=128, latent_dim=16, seq_len=60, attention=True, params=919,264)
+2026-03-28 20:07:49.488 | INFO     | models.trainer:train:327 - Entraînement — 250 epochs max | batch=64 | lr=0.0005 | KL warmup=80 epochs
+2026-03-28 20:08:08.626 | INFO     | models.trainer:train:365 -   Epoch    1/250 | β=0.000 | train_loss=0.89839 | val_loss=0.76961 | recon=0.76961 | kl=1.60769 | lr=5.00e-04
+2026-03-28 20:11:23.780 | INFO     | models.trainer:train:365 -   Epoch   10/250 | β=0.113 | train_loss=0.58484 | val_loss=0.86509 | recon=0.78555 | kl=0.70706 | lr=4.98e-04
+2026-03-28 20:15:05.415 | INFO     | models.trainer:train:365 -   Epoch   20/250 | β=0.237 | train_loss=0.59085 | val_loss=0.89009 | recon=0.77515 | kl=0.48393 | lr=4.93e-04
+2026-03-28 20:18:49.806 | INFO     | models.trainer:train:365 -   Epoch   30/250 | β=0.362 | train_loss=0.62193 | val_loss=0.95529 | recon=0.81062 | kl=0.39909 | lr=4.84e-04
+2026-03-28 20:19:14.370 | INFO     | models.trainer:train:381 -   Early stopping à l'epoch 31 (meilleur: epoch 1)
+2026-03-28 20:19:14.459 | INFO     | models.trainer:load:486 - Checkpoint chargé : vae_best.pt (epoch 1, val_loss=0.769614)
+2026-03-28 20:19:14.462 | SUCCESS  | models.trainer:train:389 - Entraînement terminé — meilleur val_loss=0.769614 (epoch 1)
+2026-03-28 20:19:14.469 | SUCCESS  | __main__:main:205 -   VAE entraîné — 31 epochs | best_epoch=1
+2026-03-28 20:19:23.828 | INFO     | models.trainer:encode_all:443 - Espaces latents extraits — train: (2487, 16) | val: (486, 16) | test: (488, 16)
+2026-03-28 20:19:23.828 | INFO     | __main__:main:211 -   Espace latent : dim=16
+2026-03-28 20:19:23.829 | INFO     | __main__:main:216 - 
+[3/5] 🎯 Fitting HMM & Baseline Markov-Switching...
+2026-03-28 20:19:24.458 | INFO     | models.hmm:fit:190 - Fitting GaussianHMM — n_regimes=3 | covariance='full' | n_init=10 | n_iter=300
+2026-03-28 20:19:28.893 | DEBUG    | models.hmm:fit:218 -   Tentative 1/10 — log-likelihood : -19294.0993 ★
+2026-03-28 20:19:31.326 | DEBUG    | models.hmm:fit:218 -   Tentative 2/10 — log-likelihood : -12506.6958 ★
+2026-03-28 20:19:32.785 | DEBUG    | models.hmm:fit:223 -   Tentative 3/10 — log-likelihood : -13270.0166
+2026-03-28 20:19:35.540 | DEBUG    | models.hmm:fit:223 -   Tentative 4/10 — log-likelihood : -13270.0167
+2026-03-28 20:19:36.633 | DEBUG    | models.hmm:fit:223 -   Tentative 5/10 — log-likelihood : -13290.3652
+2026-03-28 20:19:38.121 | DEBUG    | models.hmm:fit:223 -   Tentative 6/10 — log-likelihood : -13043.6445
+2026-03-28 20:19:39.321 | DEBUG    | models.hmm:fit:223 -   Tentative 7/10 — log-likelihood : -13270.0166
+2026-03-28 20:19:40.780 | DEBUG    | models.hmm:fit:223 -   Tentative 8/10 — log-likelihood : -12836.4805
+2026-03-28 20:19:42.656 | DEBUG    | models.hmm:fit:223 -   Tentative 9/10 — log-likelihood : -12737.0342
+2026-03-28 20:19:45.193 | DEBUG    | models.hmm:fit:223 -   Tentative 10/10 — log-likelihood : -12781.9860
+2026-03-28 20:19:45.197 | INFO     | models.hmm:fit:103 - RegimeIdentifier — tri par rendement financier : R0=0.027%/j | R1=0.068%/j | R2=0.069%/j
+2026-03-28 20:19:45.198 | DEBUG    | models.hmm:fit:122 - Permutation canonique : [0 1 2]
+2026-03-28 20:19:45.203 | SUCCESS  | models.hmm:_log_fit_summary:605 - HMM ajusté — log-likelihood=-12506.6958 | Distribution train : R0=39.8% | R1=30.1% | R2=30.1%
+2026-03-28 20:19:45.203 | INFO     | models.hmm:print_diagnostics:474 - =======================================================
+2026-03-28 20:19:45.204 | INFO     | models.hmm:print_diagnostics:475 -   DIAGNOSTIC HMM v2
+2026-03-28 20:19:45.205 | INFO     | models.hmm:print_diagnostics:476 - =======================================================
+2026-03-28 20:19:45.205 | INFO     | models.hmm:print_diagnostics:477 -   Log-vraisemblance train : -12506.6958
+2026-03-28 20:19:45.206 | INFO     | models.hmm:print_diagnostics:478 -   n_regimes               : 3
+2026-03-28 20:19:45.206 | INFO     | models.hmm:print_diagnostics:479 -   covariance_type         : full
+2026-03-28 20:19:45.207 | INFO     | models.hmm:print_diagnostics:480 -   Ordre régimes           : par rendement financier moyen
+2026-03-28 20:19:45.207 | INFO     | models.hmm:print_diagnostics:482 - 
+  Matrice de transition (ordre canonique) :
+2026-03-28 20:19:45.208 | INFO     | models.hmm:print_diagnostics:486 -     Régime 0 → [0.9940  0.0050  0.0010]
+2026-03-28 20:19:45.208 | INFO     | models.hmm:print_diagnostics:486 -     Régime 1 → [0.0054  0.9920  0.0027]
+2026-03-28 20:19:45.209 | INFO     | models.hmm:print_diagnostics:486 -     Régime 2 → [0.0027  0.0027  0.9947]
+2026-03-28 20:19:45.209 | INFO     | models.hmm:print_diagnostics:488 - 
+  Probabilités initiales (startprob) :
+2026-03-28 20:19:45.210 | INFO     | models.hmm:print_diagnostics:492 -     Régime 0 : 0.0000
+2026-03-28 20:19:45.210 | INFO     | models.hmm:print_diagnostics:492 -     Régime 1 : 0.0000
+2026-03-28 20:19:45.211 | INFO     | models.hmm:print_diagnostics:492 -     Régime 2 : 1.0000
+2026-03-28 20:19:45.221 | INFO     | models.hmm:print_diagnostics:496 - 
+  Statistiques par régime (train set) :
+2026-03-28 20:19:45.222 | INFO     | models.hmm:print_diagnostics:498 -     Régime 0 : 39.8% des obs | durée moy. 165.0j | durée max 342j
+2026-03-28 20:19:45.222 | INFO     | models.hmm:print_diagnostics:498 -     Régime 1 : 30.1% des obs | durée moy. 107.0j | durée max 235j
+2026-03-28 20:19:45.223 | INFO     | models.hmm:print_diagnostics:498 -     Régime 2 : 30.1% des obs | durée moy. 187.0j | durée max 518j
+2026-03-28 20:19:45.224 | INFO     | models.hmm:print_diagnostics:503 - =======================================================
+2026-03-28 20:19:45.224 | INFO     | __main__:main:256 -   Calcul des régimes (causal forward filtering)...
+2026-03-28 20:19:45.251 | INFO     | __main__:main:259 -   Calcul des régimes Viterbi (pour visualisation uniquement)...
+2026-03-28 20:19:45.272 | INFO     | models.hmm:save:520 - RegimeHMM sauvegardé : models\checkpoints\hmm.pkl
+2026-03-28 20:19:45.272 | INFO     | __main__:main:270 -   Accord Viterbi/Causal : 94.1% (faible look-ahead bias)
+2026-03-28 20:19:45.273 | INFO     | models.markov_switching:fit:127 - Fitting Markov-Switching (Hamilton) — k_regimes=2 | AR order=0 | switching_variance=True
+2026-03-28 20:19:47.301 | SUCCESS  | models.markov_switching:_log_fit_summary:416 - Markov-Switching ajusté — log-likelihood=8547.8001 | AIC=-17083.6002 | BIC=-17048.5489
+2026-03-28 20:19:47.302 | INFO     | models.markov_switching:print_summary:276 - =======================================================
+2026-03-28 20:19:47.303 | INFO     | models.markov_switching:print_summary:277 -   BASELINE MARKOV-SWITCHING (Hamilton, 1989)
+2026-03-28 20:19:47.303 | INFO     | models.markov_switching:print_summary:278 - =======================================================
+2026-03-28 20:19:47.304 | INFO     | models.markov_switching:print_summary:282 -   Log-likelihood : 8547.8001
+2026-03-28 20:19:47.304 | INFO     | models.markov_switching:print_summary:283 -   AIC            : -17083.6002
+2026-03-28 20:19:47.305 | INFO     | models.markov_switching:print_summary:284 -   BIC            : -17048.5489
+2026-03-28 20:19:47.305 | INFO     | models.markov_switching:print_summary:290 - 
+  Matrice de transition :
+2026-03-28 20:19:47.305 | INFO     | models.markov_switching:print_summary:293 -     R0 → [0.9742  0.0669]
+2026-03-28 20:19:47.306 | INFO     | models.markov_switching:print_summary:293 -     R1 → [0.0258  0.9331]
+2026-03-28 20:19:47.308 | INFO     | models.markov_switching:print_summary:297 - 
+  Durées implicites par régime :
+2026-03-28 20:19:47.308 | INFO     | models.markov_switching:print_summary:299 -     Régime 0 : 38.8 jours en moyenne
+2026-03-28 20:19:47.309 | INFO     | models.markov_switching:print_summary:299 -     Régime 1 : 14.9 jours en moyenne
+2026-03-28 20:19:47.310 | INFO     | models.markov_switching:print_summary:302 - =======================================================
+2026-03-28 20:19:47.310 | SUCCESS  | __main__:main:281 -   Baseline Hamilton ajusté.
+2026-03-28 20:19:47.311 | INFO     | __main__:main:289 - 
+[4/5] 📈 Backtest de la stratégie adaptative...
+2026-03-28 20:19:47.316 | INFO     | __main__:main:313 -   Mode soft allocation (filtre de confiance activé)...
+2026-03-28 20:19:47.328 | INFO     | __main__:compute_soft_regimes:135 -   Filtre de confiance (seuil=55%) : 2/488 jours repliés (0.4%) → régime 1 (transition)
+2026-03-28 20:19:47.329 | INFO     | strategy.backtester:run:163 - Backtest — 488 jours | coûts=10.0bps | seuil dérive=5%
+2026-03-28 20:19:47.343 | INFO     | strategy.backtester:_log_summary:411 - ───────────────────────────────────────────────────────
+2026-03-28 20:19:47.344 | INFO     | strategy.backtester:_log_summary:412 -   RÉSULTATS BACKTEST
+2026-03-28 20:19:47.344 | INFO     | strategy.backtester:_log_summary:413 - ───────────────────────────────────────────────────────
+2026-03-28 20:19:47.345 | SUCCESS  | strategy.backtester:_log_summary:416 -   [VAE-HMM] Sharpe=0.577 | CAGR=8.2% | MaxDD=-7.2% | Sortino=0.659
+2026-03-28 20:19:47.345 | SUCCESS  | strategy.backtester:_log_summary:416 -   [Buy & Hold] Sharpe=1.429 | CAGR=23.7% | MaxDD=-10.0% | Sortino=2.236
+2026-03-28 20:19:47.346 | INFO     | strategy.backtester:_log_summary:423 - ───────────────────────────────────────────────────────
+2026-03-28 20:19:47.346 | INFO     | __main__:main:330 -   Backtest Viterbi brut (pour comparaison diagnostique)...
+2026-03-28 20:19:47.347 | INFO     | strategy.backtester:run:163 - Backtest — 488 jours | coûts=10.0bps | seuil dérive=5%
+2026-03-28 20:19:47.362 | INFO     | strategy.backtester:_log_summary:411 - ───────────────────────────────────────────────────────
+2026-03-28 20:19:47.363 | INFO     | strategy.backtester:_log_summary:412 -   RÉSULTATS BACKTEST
+2026-03-28 20:19:47.363 | INFO     | strategy.backtester:_log_summary:413 - ───────────────────────────────────────────────────────
+2026-03-28 20:19:47.364 | SUCCESS  | strategy.backtester:_log_summary:416 -   [VAE-HMM] Sharpe=0.386 | CAGR=6.7% | MaxDD=-7.2% | Sortino=0.422
+2026-03-28 20:19:47.364 | SUCCESS  | strategy.backtester:_log_summary:416 -   [Buy & Hold] Sharpe=1.429 | CAGR=23.7% | MaxDD=-10.0% | Sortino=2.236
+2026-03-28 20:19:47.365 | INFO     | strategy.backtester:_log_summary:423 - ───────────────────────────────────────────────────────
+2026-03-28 20:19:47.366 | INFO     | __main__:main:340 - 
+[5/5] 📊 Évaluation comparative & visualisations...
+2026-03-28 20:19:49.382 | INFO     | evaluation.comparator:compare:111 - ModelComparator — démarrage de la comparaison
+2026-03-28 20:19:49.650 | INFO     | evaluation.comparator:compare:125 - 
+                   VAE-HMM  Buy & Hold  Markov-Switching (Hamilton)
+CAGR                0.0819      0.2370                       0.0909
+Vol. ann.           0.0716      0.1265                       0.0762
+Sharpe              0.5769      1.4293                       0.6552
+Sortino             0.6594      2.2359                       0.7376
+Calmar              1.1374      2.3762                       1.2723
+Max DD             -0.0720     -0.0997                      -0.0714
+Return total        0.1647      0.5097                       0.1835
+Win Rate            0.6434      0.5738                       0.6557
+Nb rebalancements  16.0000      0.0000                      17.0000
+
+2026-03-28 20:19:49.660 | INFO     | evaluation.comparator:_jobson_korkie_test:382 -   Jobson-Korkie (VAE-HMM vs Buy & Hold) : ΔSharpe=-0.611 | z=-19.42 | p=0.000 ★ significatif
+2026-03-28 20:19:49.666 | DEBUG    | evaluation.comparator:_information_coefficient:423 -   IC(horizon=1j) = -0.0007 (p=0.988)
+2026-03-28 20:19:49.670 | DEBUG    | evaluation.comparator:_information_coefficient:423 -   IC(horizon=5j) = -0.0016 (p=0.971)
+2026-03-28 20:19:49.674 | SUCCESS  | evaluation.comparator:compare:169 - Comparaison terminée.
+2026-03-28 20:19:49.674 | INFO     | evaluation.comparator:print_summary:215 - 
+════════════════════════════════════════════════════════════
+2026-03-28 20:19:49.675 | INFO     | evaluation.comparator:print_summary:216 -   COMPARAISON DES MODÈLES — RÉSUMÉ
+2026-03-28 20:19:49.675 | INFO     | evaluation.comparator:print_summary:217 - ════════════════════════════════════════════════════════════
+2026-03-28 20:19:49.676 | INFO     | evaluation.comparator:print_summary:220 - 
+  ▶ VAE-HMM
+2026-03-28 20:19:49.677 | INFO     | evaluation.comparator:print_summary:221 -     CAGR              : 8.19%
+2026-03-28 20:19:49.677 | INFO     | evaluation.comparator:print_summary:222 -     Sharpe Ratio      : 0.577
+2026-03-28 20:19:49.677 | INFO     | evaluation.comparator:print_summary:223 -     Sortino Ratio     : 0.659
+2026-03-28 20:19:49.678 | INFO     | evaluation.comparator:print_summary:224 -     Max Drawdown      : -7.20%
+2026-03-28 20:19:49.679 | INFO     | evaluation.comparator:print_summary:225 -     Calmar Ratio      : 1.137
+2026-03-28 20:19:49.679 | INFO     | evaluation.comparator:print_summary:220 - 
+  ▶ Buy & Hold
+2026-03-28 20:19:49.679 | INFO     | evaluation.comparator:print_summary:221 -     CAGR              : 23.70%
+2026-03-28 20:19:49.679 | INFO     | evaluation.comparator:print_summary:222 -     Sharpe Ratio      : 1.429
+2026-03-28 20:19:49.679 | INFO     | evaluation.comparator:print_summary:223 -     Sortino Ratio     : 2.236
+2026-03-28 20:19:49.680 | INFO     | evaluation.comparator:print_summary:224 -     Max Drawdown      : -9.97%
+2026-03-28 20:19:49.680 | INFO     | evaluation.comparator:print_summary:225 -     Calmar Ratio      : 2.376
+2026-03-28 20:19:49.681 | INFO     | evaluation.comparator:print_summary:220 - 
+  ▶ Markov-Switching (Hamilton)
+2026-03-28 20:19:49.681 | INFO     | evaluation.comparator:print_summary:221 -     CAGR              : 9.09%
+2026-03-28 20:19:49.682 | INFO     | evaluation.comparator:print_summary:222 -     Sharpe Ratio      : 0.655
+2026-03-28 20:19:49.682 | INFO     | evaluation.comparator:print_summary:223 -     Sortino Ratio     : 0.738
+2026-03-28 20:19:49.683 | INFO     | evaluation.comparator:print_summary:224 -     Max Drawdown      : -7.14%
+2026-03-28 20:19:49.683 | INFO     | evaluation.comparator:print_summary:225 -     Calmar Ratio      : 1.272
+2026-03-28 20:19:49.684 | INFO     | evaluation.comparator:print_summary:228 - 
+  IC régime (1j)    : -0.0007
+2026-03-28 20:19:49.684 | INFO     | evaluation.comparator:print_summary:229 -   IC régime (5j)    : -0.0016
+2026-03-28 20:19:49.685 | INFO     | evaluation.comparator:print_summary:234 - 
+  Test Jobson-Korkie (VAE-HMM vs Buy & Hold) : ΔSharpe=-0.611 | p=0.000 ★ SIGNIFICATIF (p<0.05)
+2026-03-28 20:19:49.685 | INFO     | evaluation.comparator:print_summary:239 - ════════════════════════════════════════════════════════════
+
+2026-03-28 20:19:49.690 | INFO     | evaluation.comparator:save_report:203 - Rapport sauvegardé : results\comparison_report.json
+2026-03-28 20:19:49.734 | INFO     | __main__:_save_regime_diagnostics:471 -   Diagnostics régimes → results\regime_diagnostics.csv
+2026-03-28 20:19:49.736 | INFO     | utils.plotting:plot_all:161 - RegimePlotter — génération de toutes les figures...
+2026-03-28 20:19:51.055 | DEBUG    | utils.plotting:_save:848 -   → 01_regimes_on_price.png
+2026-03-28 20:19:52.245 | DEBUG    | utils.plotting:_save:848 -   → 02_equity_curves.png
+2026-03-28 20:19:52.730 | DEBUG    | utils.plotting:_save:848 -   → 03_transition_matrix.png
+2026-03-28 20:19:53.342 | DEBUG    | utils.plotting:_save:848 -   → 04_regime_distribution.png
+2026-03-28 20:19:54.025 | DEBUG    | utils.plotting:_save:848 -   → 05_drawdowns.png
+2026-03-28 20:19:54.680 | DEBUG    | utils.plotting:_save:848 -   → 06_rolling_sharpe.png
+2026-03-28 20:19:55.392 | DEBUG    | utils.plotting:_save:848 -   → 07_monthly_returns.png
+2026-03-28 20:19:56.146 | DEBUG    | utils.plotting:_save:848 -   → 08_latent_space.png
+2026-03-28 20:19:58.027 | DEBUG    | utils.plotting:_save:848 -   → 09_training_history.png
+2026-03-28 20:20:01.608 | DEBUG    | utils.plotting:_save:848 -   → 10_full_dashboard.png
+2026-03-28 20:20:01.608 | SUCCESS  | utils.plotting:plot_all:235 -   10 figures sauvegardées → results\figures
+2026-03-28 20:20:01.609 | INFO     | __main__:main:380 - 
+============================================================
+2026-03-28 20:20:01.609 | INFO     | __main__:main:381 -   RÉSULTATS FINAUX
+2026-03-28 20:20:01.610 | INFO     | __main__:main:382 - ============================================================
+2026-03-28 20:20:01.610 | INFO     | __main__:main:384 - 
+  [VAE-HMM]
+2026-03-28 20:20:01.611 | INFO     | __main__:main:385 -     CAGR         : 8.19%
+2026-03-28 20:20:01.611 | INFO     | __main__:main:386 -     Sharpe       : 0.577
+2026-03-28 20:20:01.612 | INFO     | __main__:main:387 -     Sortino      : 0.659
+2026-03-28 20:20:01.612 | INFO     | __main__:main:388 -     Max Drawdown : -7.20%
+2026-03-28 20:20:01.613 | INFO     | __main__:main:384 - 
+  [Buy & Hold]
+2026-03-28 20:20:01.613 | INFO     | __main__:main:385 -     CAGR         : 23.70%
+2026-03-28 20:20:01.613 | INFO     | __main__:main:386 -     Sharpe       : 1.429
+2026-03-28 20:20:01.614 | INFO     | __main__:main:387 -     Sortino      : 2.236
+2026-03-28 20:20:01.614 | INFO     | __main__:main:388 -     Max Drawdown : -9.97%
+2026-03-28 20:20:01.615 | INFO     | __main__:main:384 - 
+  [Markov-Switching (Hamilton)]
+2026-03-28 20:20:01.615 | INFO     | __main__:main:385 -     CAGR         : 9.09%
+2026-03-28 20:20:01.615 | INFO     | __main__:main:386 -     Sharpe       : 0.655
+2026-03-28 20:20:01.616 | INFO     | __main__:main:387 -     Sortino      : 0.738
+2026-03-28 20:20:01.616 | INFO     | __main__:main:388 -     Max Drawdown : -7.14%
+2026-03-28 20:20:01.616 | INFO     | __main__:main:391 - 
+  IC régime (1j) : -0.0007
+2026-03-28 20:20:01.617 | INFO     | __main__:main:392 -   IC régime (5j) : -0.0016
+2026-03-28 20:20:01.617 | INFO     | __main__:main:393 - 
+  ⏱  Pipeline terminé en 742.4s
+2026-03-28 20:20:01.617 | INFO     | __main__:main:394 -   📁 Figures     → results\figures
+2026-03-28 20:20:01.618 | INFO     | __main__:main:395 -   📄 Rapport     → results\comparison_report.json
+2026-03-28 20:20:01.618 | INFO     | __main__:main:396 - ============================================================

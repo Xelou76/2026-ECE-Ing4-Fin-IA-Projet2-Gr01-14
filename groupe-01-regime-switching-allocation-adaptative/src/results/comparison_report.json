@@ -1,0 +1,138 @@
+{
+  "metrics": {
+    "VAE-HMM": {
+      "total_return": 0.16474225612453774,
+      "annualized_return": 0.08193370600615868,
+      "annualized_volatility": 0.07163662501230512,
+      "sharpe_ratio": 0.5769,
+      "sortino_ratio": 0.6594,
+      "max_drawdown": -0.07203445359812476,
+      "calmar_ratio": 1.1374,
+      "win_rate": 0.6434426229508197,
+      "n_trades": 16,
+      "avg_trade_duration_days": 0.0
+    },
+    "Buy & Hold": {
+      "total_return": 0.5096728486180626,
+      "annualized_return": 0.23701204321594482,
+      "annualized_volatility": 0.12648116897205053,
+      "sharpe_ratio": 1.4293,
+      "sortino_ratio": 2.2359,
+      "max_drawdown": -0.09974317830973066,
+      "calmar_ratio": 2.3762,
+      "win_rate": 0.5737704918032787,
+      "n_trades": 0,
+      "avg_trade_duration_days": 0.0
+    },
+    "Markov-Switching (Hamilton)": {
+      "total_return": 0.18347503322246728,
+      "annualized_return": 0.09088477295206143,
+      "annualized_volatility": 0.07615640019370577,
+      "sharpe_ratio": 0.6552,
+      "sortino_ratio": 0.7376,
+      "max_drawdown": -0.07143582778879075,
+      "calmar_ratio": 1.2723,
+      "win_rate": 0.6557377049180327,
+      "n_trades": 17,
+      "avg_trade_duration_days": 0.0
+    }
+  },
+  "metrics_table": {
+    "VAE-HMM": {
+      "CAGR": 0.08193370600615868,
+      "Vol. ann.": 0.07163662501230512,
+      "Sharpe": 0.5769,
+      "Sortino": 0.6594,
+      "Calmar": 1.1374,
+      "Max DD": -0.07203445359812476,
+      "Return total": 0.16474225612453774,
+      "Win Rate": 0.6434426229508197,
+      "Nb rebalancements": 16.0
+    },
+    "Buy & Hold": {
+      "CAGR": 0.23701204321594482,
+      "Vol. ann.": 0.12648116897205053,
+      "Sharpe": 1.4293,
+      "Sortino": 2.2359,
+      "Calmar": 2.3762,
+      "Max DD": -0.09974317830973066,
+      "Return total": 0.5096728486180626,
+      "Win Rate": 0.5737704918032787,
+      "Nb rebalancements": 0.0
+    },
+    "Markov-Switching (Hamilton)": {
+      "CAGR": 0.09088477295206143,
+      "Vol. ann.": 0.07615640019370577,
+      "Sharpe": 0.6552,
+      "Sortino": 0.7376,
+      "Calmar": 1.2723,
+      "Max DD": -0.07143582778879075,
+      "Return total": 0.18347503322246728,
+      "Win Rate": 0.6557377049180327,
+      "Nb rebalancements": 17.0
+    }
+  },
+  "regime_stats": {
+    "vae_hmm": {
+      "Bear / Haute Volatilit\u00e9": {
+        "frequency_pct": 45.9958932238193,
+        "mean_daily_return_pct": 0.10176053142506827,
+        "ann_volatility_pct": 12.344912827465052,
+        "mean_duration_days": 37.333333333333336,
+        "max_duration_days": 125.0,
+        "n_episodes": 6
+      },
+      "Transition / Incertitude": {
+        "frequency_pct": 14.37371663244353,
+        "mean_daily_return_pct": 0.17119770032901757,
+        "ann_volatility_pct": 12.916233580791225,
+        "mean_duration_days": 11.666666666666666,
+        "max_duration_days": 33.0,
+        "n_episodes": 6
+      },
+      "Bull / Basse Volatilit\u00e9": {
+        "frequency_pct": 39.630390143737166,
+        "mean_daily_return_pct": 0.041324087329244044,
+        "ann_volatility_pct": 12.846672167803627,
+        "mean_duration_days": 48.25,
+        "max_duration_days": 84.0,
+        "n_episodes": 4
+      }
+    },
+    "markov_switching": {
+      "R\u00e9gime Bas (bear)": {
+        "frequency_pct": 58.52156057494866,
+        "mean_daily_return_pct": 0.09282925347719657,
+        "ann_volatility_pct": 11.735765530030884,
+        "mean_duration_days": 31.666666666666668,
+        "max_duration_days": 73.0,
+        "n_episodes": 9
+      },
+      "R\u00e9gime Haut (bull)": {
+        "frequency_pct": 41.478439425051334,
+        "mean_daily_return_pct": 0.0806802459197505,
+        "ann_volatility_pct": 13.832249466182617,
+        "mean_duration_days": 25.25,
+        "max_duration_days": 95.0,
+        "n_episodes": 8
+      }
+    }
+  },
+  "sharpe_significance_test": {
+    "sharpe_a": 1.1364,
+    "sharpe_b": 1.7473,
+    "delta_sharpe": -0.6109,
+    "z_statistic": -19.4226,
+    "p_value": 0.0,
+    "significant_5pct": true
+  },
+  "information_coefficient": {
+    "ic_1d": -0.0006755210279395183,
+    "ic_5d": -0.001648508921978712
+  },
+  "n_observations": 488,
+  "period": {
+    "start": "2023-01-23",
+    "end": "2024-12-30"
+  }
+}
