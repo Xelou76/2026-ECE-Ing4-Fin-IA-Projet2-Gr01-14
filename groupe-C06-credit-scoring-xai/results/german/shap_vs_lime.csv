@@ -1,0 +1,11 @@
+profil,idx,pred_prob,shap_top3,lime_top3,concordance
+0,95,0.124,statut_compte | charge_mensuelle | anciennete_emploi,historique_credit <= 2.00 | 2.00 < anciennete_emploi <= 4.00 | 1.00 < objet_credit <= 3.00,0.0
+1,15,0.335,charge_mensuelle | duree_mois | statut_compte,2.00 < anciennete_emploi <= 4.00 | 1.00 < statut_compte <= 3.00 | historique_credit <= 2.00,0.0
+2,30,0.049,duree_mois | statut_compte | autres_credits,historique_credit <= 2.00 | duree_mois <= -0.74 | 2.00 < anciennete_emploi <= 4.00,0.0
+3,158,0.146,statut_compte | autres_credits | historique_credit,2.00 < anciennete_emploi <= 4.00 | 2.00 < historique_credit <= 4.00 | travailleur_etranger <= 0.00,0.0
+4,128,0.256,montant_credit | logement | epargne,historique_credit <= 2.00 | travailleur_etranger <= 0.00 | anciennete_emploi <= 2.00,0.0
+5,115,0.453,statut_compte | historique_credit | propriete,epargne <= 0.00 | duree_mois <= -0.74 | 2.00 < anciennete_emploi <= 4.00,0.0
+6,69,0.781,montant_credit | statut_compte | anciennete_emploi,historique_credit <= 2.00 | travailleur_etranger <= 0.00 | anciennete_emploi <= 2.00,0.0
+7,170,0.304,montant_credit | epargne | charge_mensuelle,epargne > 2.00 | historique_credit <= 2.00 | travailleur_etranger <= 0.00,0.0
+8,174,0.006,duree_mois | charge_mensuelle | autres_debiteurs,duree_mois <= -0.74 | historique_credit <= 2.00 | anciennete_emploi <= 2.00,0.0
+9,45,0.033,statut_compte | historique_credit | anciennete_emploi,2.00 < anciennete_emploi <= 4.00 | charge_mensuelle <= -0.65 | 2.00 < historique_credit <= 4.00,0.0

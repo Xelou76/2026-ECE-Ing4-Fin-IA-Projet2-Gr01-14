@@ -1,0 +1,58 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html,
+  body {
+    @apply bg-slate-900 text-slate-100;
+    min-height: 100vh;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-slate-900;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-slate-600 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-slate-500;
+  }
+}
+
+@layer utilities {
+  .text-bullish {
+    @apply text-emerald-400;
+  }
+
+  .text-bearish {
+    @apply text-red-400;
+  }
+
+  .text-neutral {
+    @apply text-slate-400;
+  }
+
+  .bg-bullish {
+    @apply bg-emerald-900/40 border border-emerald-700/50;
+  }
+
+  .bg-bearish {
+    @apply bg-red-900/40 border border-red-700/50;
+  }
+
+  .bg-neutral-signal {
+    @apply bg-slate-700/40 border border-slate-600/50;
+  }
+}

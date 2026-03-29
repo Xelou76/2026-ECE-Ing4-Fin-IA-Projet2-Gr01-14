@@ -1,0 +1,11 @@
+profil,idx,pred_prob,shap_top3,lime_top3,concordance
+0,6252,0.148,sub_grade | installment | open_acc,10.00 < sub_grade <= 15.00 | term <= -0.56 | dti > 0.53,0.0
+1,4684,0.076,sub_grade | revol_util | dti,sub_grade <= 6.00 | term <= -0.56 | dti > 0.53,0.0
+2,1731,0.159,sub_grade | installment | revol_util,sub_grade > 15.00 | annual_inc <= -0.36 | term <= -0.56,0.0
+3,4742,0.142,sub_grade | open_acc | dti,sub_grade <= 6.00 | dti > 0.53 | annual_inc <= -0.36,0.0
+4,4521,0.396,sub_grade | term | dti,sub_grade > 15.00 | dti > 0.53 | term <= -0.56,0.0
+5,6340,0.151,sub_grade | annual_inc | home_ownership,sub_grade <= 6.00 | annual_inc <= -0.36 | term <= -0.56,0.0
+6,576,0.419,sub_grade | annual_inc | term,sub_grade > 15.00 | term > -0.56 | annual_inc > 0.16,0.0
+7,5202,0.08,sub_grade | mort_acc | home_ownership,sub_grade <= 6.00 | term <= -0.56 | home_ownership <= 1.00,0.0
+8,6363,0.167,annual_inc | mort_acc | open_acc,6.00 < sub_grade <= 10.00 | term <= -0.56 | annual_inc <= -0.36,0.0
+9,439,0.232,revol_bal | sub_grade | annual_inc,10.00 < sub_grade <= 15.00 | term <= -0.56 | annual_inc <= -0.36,0.0
