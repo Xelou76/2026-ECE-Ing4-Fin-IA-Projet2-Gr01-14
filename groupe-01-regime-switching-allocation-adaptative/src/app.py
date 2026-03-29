@@ -36,7 +36,14 @@ RESULTS_DIR = Path("results")
 # --- Métadonnées des figures générées par main.py ---
 # Format : { "nom_fichier.png" : ("Titre affiché", "Description explicative") }
 FIGURE_METADATA: dict[str, tuple[str, str]] = {
-   
+    "01_regimes_on_price.png": (
+        "Régimes de Marché sur le Cours SPY",
+        "Visualisation des régimes de marché (Bull, Transition, Bear) détectés par le "
+        "pipeline VAE-HMM sur le cours de clôture ajusté du SPY. Les fonds colorés "
+        "représentent les périodes classifiées dans chaque régime : vert (Bull / "
+        "basse volatilité), orange (Transition / incertitude), rouge (Bear / haute "
+        "volatilité). Le sous-graphique inférieur montre les probabilités a posteriori "
+        "P(régime_t | données) calculées par l'algorithme Forward-Backward du HMM.",
     ),
     "02_equity_curves.png": (
         "Comparaison des Equity Curves",
