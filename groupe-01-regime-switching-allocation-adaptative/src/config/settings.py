@@ -40,11 +40,11 @@ class DataConfig(BaseSettings):
     # Période étendue pour inclure plusieurs cycles complets :
     # 2010-2019 bull market, 2020 Covid crash, 2022 bear (-20%), 2023-2024 rally
     # → la période de test (2022-2024) inclut un vrai bear market
-    start_date: str = Field(default="2010-01-01", description="Début de la fenêtre")
-    end_date: str = Field(default="2024-12-31", description="Fin de la fenêtre")
+    start_date: str = Field(default="2007-01-01", description="Début de la fenêtre")
+    end_date: str = Field(default="2025-12-31", description="Fin de la fenêtre")
 
-    train_ratio: float = Field(default=0.7, ge=0.5, le=0.9)
-    val_ratio: float = Field(default=0.15, ge=0.05, le=0.3)
+    train_ratio: float = Field(default=0.58, ge=0.5, le=0.9)
+    val_ratio: float = Field(default=0.06, ge=0.05, le=0.3)
 
     vol_windows: list[int] = Field(default=[5, 21, 63])
     return_windows: list[int] = Field(default=[1, 5, 21])
@@ -103,7 +103,7 @@ class VAEConfig(BaseSettings):
     weight_decay: float = Field(default=1e-4)
 
     beta_start: float = Field(default=0.0, description="KL annealing start")
-    beta_end: float = Field(default=1.0, description="KL annealing end")
+    beta_end: float = Field(default=1.5, description="KL annealing end")
 
     # CORRECTION : warmup réduit de 80 à 40 epochs (27% des 150 epochs).
     # Raison : avec latent_dim=8 et hidden_dim=64, le modèle converge
@@ -196,7 +196,7 @@ class StrategyConfig(BaseSettings):
     # plus tranchées. Un seuil de 0.60 évite les signaux trop incertains
     # tout en restant actionnable.
     min_confidence: float = Field(
-        default=0.60,
+        default=0.75,
         description="Confiance min (max posterior) pour utiliser l'allocation du régime",
         ge=0.3,
         le=1.0,
@@ -262,4 +262,4 @@ def get_settings() -> ProjectConfig:
     """
     cfg = ProjectConfig()
     cfg.create_directories()
-    return cfg 
+    return cfg
