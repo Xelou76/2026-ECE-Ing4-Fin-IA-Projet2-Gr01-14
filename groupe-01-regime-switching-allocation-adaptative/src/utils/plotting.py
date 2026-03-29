@@ -47,9 +47,18 @@ from config.constants import (
     MODEL_MARKOV_SWITCHING,
     MODEL_VAE_HMM,
     REGIME_COLORS,
+    REGIME_COLORS_2,
     REGIME_LABELS,
+    REGIME_LABELS_2,
 )
 from strategy.backtester import BacktestResult
+
+
+def _get_regime_style(n_regimes: int) -> tuple[dict, dict]:
+    """Retourne (labels, colors) adaptés au nombre de régimes."""
+    if n_regimes == 2:
+        return REGIME_LABELS_2, REGIME_COLORS_2
+    return REGIME_LABELS, REGIME_COLORS
 
 # Backend non-interactif (compatible serveurs CI/CD)
 matplotlib.use("Agg")
@@ -117,6 +126,9 @@ class RegimePlotter:
         self.output_dir.mkdir(parents=True, exist_ok=True)
         self.dpi = dpi
         self.fmt = fmt
+        # Défaut 3 régimes — mis à jour dynamiquement dans plot_all()
+        self._regime_labels = REGIME_LABELS
+        self._regime_colors = REGIME_COLORS
 
     # ------------------------------------------------------------------
     # Public — API principale (appelée par main.py)
@@ -159,6 +171,10 @@ class RegimePlotter:
             Matrice de transition du HMM — shape (K, K).
         """
         logger.info("RegimePlotter — génération de toutes les figures...")
+
+        # Inférer le nombre de régimes effectifs et sélectionner labels/couleurs
+        n_regimes_effective = len(np.unique(regimes_vae_hmm))
+        self._regime_labels, self._regime_colors = _get_regime_style(n_regimes_effective)
 
         # 1. Régimes sur le prix
         self.plot_regimes_on_price(
@@ -285,9 +301,9 @@ class RegimePlotter:
 
             patches = [
                 mpatches.Patch(
-                    facecolor=REGIME_COLORS.get(k, "#888"),
+                    facecolor=self._regime_colors.get(k, "#888"),
                     alpha=0.45,
-                    label=REGIME_LABELS.get(k, f"R{k}"),
+                    label=self._regime_labels.get(k, f"R{k}"),
                 )
                 for k in sorted(set(int(r) for r in regimes))
             ]
@@ -301,11 +317,11 @@ class RegimePlotter:
                 n_r = regime_proba.shape[1]
                 bottom = np.zeros(len(prices))
                 for k in range(n_r):
-                    c = REGIME_COLORS.get(k, "#888")
+                    c = self._regime_colors.get(k, "#888")
                     ax2.fill_between(
                         prices.index, bottom, bottom + regime_proba[:, k],
                         color=c, alpha=0.75,
-                        label=REGIME_LABELS.get(k, f"R{k}"),
+                        label=self._regime_labels.get(k, f"R{k}"),
                     )
                     bottom += regime_proba[:, k]
                 ax2.set_ylabel("P(Régime)", fontsize=9)
@@ -383,7 +399,7 @@ class RegimePlotter:
         with plt.rc_context(_RC):
             n = matrix.shape[0]
             labels_short = [f"R{k}" for k in range(n)]
-            labels_long = [REGIME_LABELS.get(k, f"R{k}") for k in range(n)]
+            labels_long = [self._regime_labels.get(k, f"R{k}") for k in range(n)]
 
             fig, ax = plt.subplots(figsize=(8, 6))
             cmap = LinearSegmentedColormap.from_list("hmm", ["#0d1117", "#388bfd"])
@@ -433,7 +449,7 @@ class RegimePlotter:
             fig, axes = plt.subplots(1, 2, figsize=(13, 5))
 
             for ax, regimes, labels, colors, model_name in [
-                (axes[0], regimes_vae, REGIME_LABELS, REGIME_COLORS, "VAE-HMM"),
+                (axes[0], regimes_vae, self._regime_labels, self._regime_colors, "VAE-HMM"),
                 (axes[1], regimes_baseline, BASELINE_REGIME_LABELS, BASELINE_REGIME_COLORS, "Hamilton"),
             ]:
                 n_r = int(max(regimes)) + 1
@@ -603,8 +619,8 @@ class RegimePlotter:
             fig, ax = plt.subplots(figsize=(9, 7))
             for k in sorted(set(int(r) for r in regimes)):
                 mask = regimes == k
-                color = REGIME_COLORS.get(k, "#888")
-                label = REGIME_LABELS.get(k, f"R{k}")
+                color = self._regime_colors.get(k, "#888")
+                label = self._regime_labels.get(k, f"R{k}")
                 ax.scatter(
                     X_2d[mask, 0], X_2d[mask, 1],
                     c=color, alpha=0.45, s=12,
@@ -716,8 +732,8 @@ class RegimePlotter:
             ax1.plot(prices.index, prices.values, color="#e6edf3", linewidth=1.0, zorder=5)
             self._shade_regimes(ax1, prices.index, regimes)
             patches = [
-                mpatches.Patch(facecolor=REGIME_COLORS.get(k, "#888"), alpha=0.4,
-                               label=REGIME_LABELS.get(k, f"R{k}"))
+                mpatches.Patch(facecolor=self._regime_colors.get(k, "#888"), alpha=0.4,
+                               label=self._regime_labels.get(k, f"R{k}"))
                 for k in sorted(set(int(r) for r in regimes))
             ]
             ax1.legend(handles=patches, fontsize=7, loc="upper left")
@@ -790,12 +806,12 @@ class RegimePlotter:
             counts = [(regimes == k).sum() for k in range(n_r)]
             total = sum(counts)
             freqs = [c / total * 100 for c in counts]
-            bar_colors = [REGIME_COLORS.get(k, "#888") for k in range(n_r)]
+            bar_colors = [self._regime_colors.get(k, "#888") for k in range(n_r)]
             bars = ax6.bar(range(n_r), freqs, color=bar_colors, alpha=0.85,
                            edgecolor="#30363d", linewidth=0.7)
             ax6.set_xticks(range(n_r))
             ax6.set_xticklabels(
-                [REGIME_LABELS.get(k, f"R{k}") for k in range(n_r)],
+                [self._regime_labels.get(k, f"R{k}") for k in range(n_r)],
                 rotation=12, ha="right", fontsize=7,
             )
             for bar, freq in zip(bars, freqs):
@@ -832,7 +848,7 @@ class RegimePlotter:
             start = changes[i]
             end = changes[i + 1]
             k = int(regime_arr[start])
-            color = REGIME_COLORS.get(k, "#888888")
+            color = self._regime_colors.get(k, "#888888")
             ax.axvspan(
                 index[start], index[min(end, n - 1)],
                 alpha=0.15, color=color, zorder=1, linewidth=0,
