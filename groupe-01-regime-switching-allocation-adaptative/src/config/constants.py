@@ -11,18 +11,32 @@ from __future__ import annotations
 # Labels et couleurs des régimes de marché
 # ---------------------------------------------------------------------------
 
-#: Mapping regime_id -> label lisible
+#: Mapping regime_id -> label lisible (3 régimes)
 REGIME_LABELS: dict[int, str] = {
     0: "Bear / Haute Volatilité",
     1: "Transition / Incertitude",
     2: "Bull / Basse Volatilité",
 }
 
-#: Couleurs matplotlib pour chaque régime (daltonien-friendly)
+#: Mapping regime_id -> label lisible (2 régimes)
+#: Avec seulement 2 régimes, le régime 1 EST le bull market — le label
+#: "Transition" est trompeur car il fait croire à un régime neutre.
+REGIME_LABELS_2: dict[int, str] = {
+    0: "Bear / Haute Volatilité",
+    1: "Bull / Basse Volatilité",
+}
+
+#: Couleurs matplotlib pour chaque régime (daltonien-friendly) — 3 régimes
 REGIME_COLORS: dict[int, str] = {
     0: "#E74C3C",  # rouge - bear
     1: "#F39C12",  # orange - transition
     2: "#27AE60",  # vert - bull
+}
+
+#: Couleurs pour 2 régimes (bear/bull direct, sans transition)
+REGIME_COLORS_2: dict[int, str] = {
+    0: "#E74C3C",  # rouge - bear
+    1: "#27AE60",  # vert - bull
 }
 
 #: Couleurs pour le modèle de référence (2 régimes)
@@ -53,7 +67,7 @@ COL_ROLLING_RETURN: str = "rolling_return_{window}d"
 COL_RSI: str = "rsi"
 COL_BB_WIDTH: str = "bb_width"
 COL_BB_POSITION: str = "bb_position"
-COL_TREND: str = "trend_50_200"
+COL_TREND: str = "trend_20_50"
 
 #: Colonne de régime prédit
 COL_REGIME: str = "regime"
