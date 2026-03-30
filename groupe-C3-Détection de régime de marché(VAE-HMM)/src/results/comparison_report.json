@@ -1,0 +1,130 @@
+{
+  "metrics": {
+    "VAE-HMM": {
+      "total_return": 0.6065393722176182,
+      "annualized_return": 0.07537513778788285,
+      "annualized_volatility": 0.11273237333967313,
+      "sharpe_ratio": 0.3464,
+      "sortino_ratio": 0.3728,
+      "max_drawdown": -0.26010504078394564,
+      "calmar_ratio": 0.2898,
+      "win_rate": 0.5626520681265207,
+      "n_trades": 17,
+      "avg_trade_duration_days": 0.0
+    },
+    "Buy & Hold": {
+      "total_return": 1.6010942130353238,
+      "annualized_return": 0.15780938029781177,
+      "annualized_volatility": 0.20172528156865302,
+      "sharpe_ratio": 0.6294,
+      "sortino_ratio": 0.7143,
+      "max_drawdown": -0.3371725173727818,
+      "calmar_ratio": 0.468,
+      "win_rate": 0.5547445255474452,
+      "n_trades": 0,
+      "avg_trade_duration_days": 0.0
+    },
+    "Markov-Switching (Hamilton)": {
+      "total_return": 0.32183863868996987,
+      "annualized_return": 0.04369787148567106,
+      "annualized_volatility": 0.04774669058552178,
+      "sharpe_ratio": 0.082,
+      "sortino_ratio": 0.076,
+      "max_drawdown": -0.10066364478667637,
+      "calmar_ratio": 0.4341,
+      "win_rate": 0.6137469586374696,
+      "n_trades": 35,
+      "avg_trade_duration_days": 0.0
+    }
+  },
+  "metrics_table": {
+    "VAE-HMM": {
+      "CAGR": 0.07537513778788285,
+      "Vol. ann.": 0.11273237333967313,
+      "Sharpe": 0.3464,
+      "Sortino": 0.3728,
+      "Calmar": 0.2898,
+      "Max DD": -0.26010504078394564,
+      "Return total": 0.6065393722176182,
+      "Win Rate": 0.5626520681265207,
+      "Nb rebalancements": 17.0
+    },
+    "Buy & Hold": {
+      "CAGR": 0.15780938029781177,
+      "Vol. ann.": 0.20172528156865302,
+      "Sharpe": 0.6294,
+      "Sortino": 0.7143,
+      "Calmar": 0.468,
+      "Max DD": -0.3371725173727818,
+      "Return total": 1.6010942130353238,
+      "Win Rate": 0.5547445255474452,
+      "Nb rebalancements": 0.0
+    },
+    "Markov-Switching (Hamilton)": {
+      "CAGR": 0.04369787148567106,
+      "Vol. ann.": 0.04774669058552178,
+      "Sharpe": 0.082,
+      "Sortino": 0.076,
+      "Calmar": 0.4341,
+      "Max DD": -0.10066364478667637,
+      "Return total": 0.32183863868996987,
+      "Win Rate": 0.6137469586374696,
+      "Nb rebalancements": 35.0
+    }
+  },
+  "regime_stats": {
+    "vae_hmm": {
+      "Bear / Haute Volatilit\u00e9": {
+        "frequency_pct": 17.650639074863054,
+        "mean_daily_return_pct": 0.20576269272678688,
+        "ann_volatility_pct": 34.54949523184669,
+        "mean_duration_days": 36.25,
+        "max_duration_days": 87.0,
+        "n_episodes": 8
+      },
+      "Transition / Incertitude": {
+        "frequency_pct": 82.34936092513695,
+        "mean_daily_return_pct": 0.03640522065240071,
+        "ann_volatility_pct": 15.39565965310701,
+        "mean_duration_days": 150.33333333333334,
+        "max_duration_days": 421.0,
+        "n_episodes": 9
+      }
+    },
+    "markov_switching": {
+      "R\u00e9gime Bas (bear)": {
+        "frequency_pct": 86.2446743761412,
+        "mean_daily_return_pct": 0.08300397926583511,
+        "ann_volatility_pct": 18.089676805167816,
+        "mean_duration_days": 83.3529411764706,
+        "max_duration_days": 349.0,
+        "n_episodes": 17
+      },
+      "R\u00e9gime Haut (bull)": {
+        "frequency_pct": 13.755325623858795,
+        "mean_daily_return_pct": -0.03844776188593797,
+        "ann_volatility_pct": 30.056572255900004,
+        "mean_duration_days": 12.555555555555555,
+        "max_duration_days": 69.0,
+        "n_episodes": 18
+      }
+    }
+  },
+  "sharpe_significance_test": {
+    "sharpe_a": 0.7015,
+    "sharpe_b": 0.828,
+    "delta_sharpe": -0.1265,
+    "z_statistic": -7.7199,
+    "p_value": 0.0,
+    "significant_5pct": true
+  },
+  "information_coefficient": {
+    "ic_1d": 0.03521010141092153,
+    "ic_5d": 0.04507975561297682
+  },
+  "n_observations": 1644,
+  "period": {
+    "start": "2019-06-18",
+    "end": "2025-12-30"
+  }
+}
